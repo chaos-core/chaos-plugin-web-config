@@ -41,4 +41,5 @@ node_modules
 
 \.idea/
 
+# ignore private bot config
 config/nix/config\.js
