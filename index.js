@@ -1,3 +1,4 @@
+const Path = require('path');
 const Rx = require('rx');
 const express = require('express');
 
@@ -9,7 +10,7 @@ class WebServerService {
     this.config = Object.assign({
       port: 3000,
       serveClient: true,
-      clientSrc: './client/build',
+      clientSrc: Path.reslove(__dirname, './client/build'),
     }, nix.config.webServer);
   }
 
