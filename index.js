@@ -1,6 +1,7 @@
 const Path = require('path');
 const Rx = require('rx');
 const express = require('express');
+const fallback = require('express-history-api-fallback');
 
 const ApiServer = require('./server/api-server');
 
@@ -34,6 +35,7 @@ class WebServerService {
 
     if (this.config.serveClient) {
       this.app.use(express.static(this.config.clientSrc));
+      this.app.use(fallback('index.html', {root: this.config.clientSrc}));
     }
   }
 }

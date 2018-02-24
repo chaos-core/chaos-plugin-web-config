@@ -4,7 +4,8 @@
   "description": "Web site for configuring nix-core based discord bots",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "express-history-api-fallback": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "7.1.6",
