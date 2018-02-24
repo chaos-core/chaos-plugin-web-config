@@ -43,3 +43,4 @@ node_modules
 
 # ignore private bot config
 config/nix/config\.js
+client/src/config\.js
