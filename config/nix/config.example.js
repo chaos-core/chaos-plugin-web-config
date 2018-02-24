@@ -6,7 +6,6 @@ module.exports = {
 
   webServer: {
     port: 3000,
-    serveClient: true,
   },
 
   logger: {
