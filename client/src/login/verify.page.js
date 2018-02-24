@@ -1,5 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import queryString from 'query-string';
+
+import NixApiService from "../nix-api-service";
 
 class LoginVerifyPage extends Component {
   render() {
@@ -16,7 +18,12 @@ class LoginVerifyPage extends Component {
 
   verifyToken() {
     let params = queryString.parse(this.props.location.search);
-    console.log(params);
+    let discordToken = params.code;
+
+    NixApiService.login(discordToken)
+      .then(() => {
+        this.props.history.push('/servers')
+      })
   }
 }
 
