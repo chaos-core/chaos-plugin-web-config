@@ -44,7 +44,7 @@ module.exports = {
   appBuild: resolveApp('client/build'),
   appPublic: resolveApp('client/public'),
   appHtml: resolveApp('client/public/index.html'),
-  appIndexJs: resolveApp('client/src/nix-module.js'),
+  appIndexJs: resolveApp('client/src/index.js'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('client/src'),
   yarnLockFile: resolveApp('yarn.lock'),
