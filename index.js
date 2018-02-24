@@ -10,7 +10,7 @@ class WebServerService {
     this.config = Object.assign({
       port: 3000,
       serveClient: true,
-      clientSrc: Path.reslove(__dirname, './client/build'),
+      clientSrc: Path.resolve(__dirname, './client/build'),
     }, nix.config.webServer);
   }
 
