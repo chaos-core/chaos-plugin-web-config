@@ -4,10 +4,20 @@ import queryString from 'query-string';
 import NixApiService from "../nix-api-service";
 
 class LoginVerifyPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      verifying: true,
+    };
+  }
+
   render() {
     return (
       <div className="page login-verify">
-        Working...
+        { this.state.verifying
+          ? (<div>Working...</div>)
+          : (<div>Errored!</div>)
+        }
       </div>
     );
   }
@@ -21,8 +31,10 @@ class LoginVerifyPage extends Component {
     let discordToken = params.code;
 
     NixApiService.login(discordToken)
-      .then(() => {
-        this.props.history.push('/servers')
+      .then(() => this.props.history.push('/servers'))
+      .catch((error) => {
+        this.setState({verifying: false});
+        console.error(error);
       })
   }
 }
