@@ -2,6 +2,7 @@ const Path = require('path');
 const Rx = require('rx');
 const express = require('express');
 const fallback = require('express-history-api-fallback');
+const cors = require('cors');
 
 const ApiServer = require('./server/api-server');
 
@@ -31,6 +32,7 @@ class WebServerService {
   createApp() {
     this.app = express();
 
+    this.app.use(bodyParser.json());
     this.app.use('/api', new ApiServer(this.nix));
 
     if (this.config.serveClient) {
