@@ -2,7 +2,7 @@ import Request from 'request-promise';
 
 import Config from './config';
 
-let accessToken = null;
+let _accessToken = null;
 
 class NixApiService {
   static login(discordToken) {
@@ -15,12 +15,38 @@ class NixApiService {
         },
       })
       .then((response) => {
-        accessToken = response.access_token;
+        this.accessToken = response.access_token;
       });
   }
 
+  static logout() {
+    return new Promise((resolve) => {
+      this.accessToken = null;
+      resolve();
+    })
+  }
+
   static get userIsLoggedIn() {
-    return accessToken !== null;
+    return this.accessToken !== null;
+  }
+
+  static get accessToken() {
+    if (!_accessToken) {
+      _accessToken = localStorage.getItem('auth.accessToken')
+    }
+
+    return _accessToken;
+  }
+
+  static set accessToken(value) {
+    _accessToken = value;
+
+    if (value !== null) {
+      localStorage.setItem('auth.accessToken', value);
+    }
+    else {
+      localStorage.removeItem('auth.accessToken');
+    }
   }
 };
 
