@@ -6,7 +6,7 @@ import Config from '../config';
 class DiscordLoginBtn extends Component {
   render() {
     return (
-      <div className="button discord-login-btn" onClick={this.loginWithDiscord}>
+      <div className="btn discord-login-btn" onClick={this.loginWithDiscord}>
         Login with Discord
       </div>
     );
