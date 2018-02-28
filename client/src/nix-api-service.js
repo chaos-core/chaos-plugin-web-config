@@ -2,52 +2,68 @@ import Request from 'request-promise';
 
 import Config from './config';
 
-let _accessToken = null;
+const LSKEY_ACCESS_TOKEN = 'auth.accessToken';
+const LSKEY_USER = 'auth.user';
 
 class NixApiService {
-  static login(discordToken) {
-    return Request
-      .post(Config.serverUrl + '/login', {
-        url: Config.serverUrl + '/login',
-        json: true,
-        body: {
-          code: discordToken,
-        },
-      })
-      .then((response) => {
-        this.accessToken = response.access_token;
-      });
+  constructor(serverUrl) {
+    this.serverUrl = serverUrl;
   }
 
-  static logout() {
-    return new Promise((resolve) => {
-      this.accessToken = null;
-      resolve();
+  post(path, data) {
+    return Request.post({
+      url: this.serverUrl + path,
+      json: true,
+      body: data,
+      headers: { Authorization: this.accessToken },
     })
   }
 
-  static get userIsLoggedIn() {
-    return this.accessToken !== null;
+  get(path) {
+    return Request.get({
+      url: this.serverUrl + path,
+      json: true,
+      headers: { Authorization: this.accessToken },
+    })
   }
 
-  static get accessToken() {
-    if (!_accessToken) {
-      _accessToken = localStorage.getItem('auth.accessToken')
-    }
-
-    return _accessToken;
+  login(discordToken) {
+    return this.post('/login', { code: discordToken })
+      .then((res) => {
+        localStorage.setItem(LSKEY_ACCESS_TOKEN, res.access_token);
+        return this.getUserInfo()
+      })
+      .then((res) => {
+        localStorage.setItem(LSKEY_USER, JSON.stringify(res.user));
+      });
   }
 
-  static set accessToken(value) {
-    _accessToken = value;
+  getUserInfo() {
+    return this.get('/user');
+  }
 
-    if (value !== null) {
-      localStorage.setItem('auth.accessToken', value);
+  logout() {
+    return new Promise((resolve) => {
+      localStorage.removeItem(LSKEY_ACCESS_TOKEN);
+      resolve();
+    });
+  }
+
+  get userIsLoggedIn() {
+    return this.user !== null;
+  }
+
+  get user() {
+    if(this.accessToken === null) {
+      localStorage.removeItem(LSKEY_USER);
     }
-    else {
-      localStorage.removeItem('auth.accessToken');
-    }
+
+    return JSON.parse(localStorage.getItem(LSKEY_USER));
+  }
+
+  get accessToken() {
+    return localStorage.getItem(LSKEY_ACCESS_TOKEN);
   }
 };
 
-export default NixApiService;
+export default new NixApiService(Config.serverUrl);

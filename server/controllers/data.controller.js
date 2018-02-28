@@ -1,6 +1,6 @@
-const ApiController = require('../api-controller');
+const NixApiController = require('../lib/nix-api-controller');
 
-class DataController extends ApiController {
+class DataController extends NixApiController {
   read(req, res) {
     this.nix.dataService
       .getGuildData(req.params.guildId, req.params.keyword)

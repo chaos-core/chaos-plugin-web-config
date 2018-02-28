@@ -7,6 +7,15 @@ class DiscordWebClient {
     this.authToken = authToken;
   }
 
+  get(path) {
+    return Request
+      .get({
+        url: discordUrl + path,
+        headers: { 'Authorization': `Bearer ${this.authToken}` }
+      })
+      .then((response) => JSON.parse(response));
+  }
+
   static validateCode({ clientId, clientSecret, code, redirectUri }) {
     let data = {
       'client_id': clientId,
@@ -22,7 +31,7 @@ class DiscordWebClient {
   }
 
   me() {
-
+    return this.get(`/users/@me`);
   }
 }
 

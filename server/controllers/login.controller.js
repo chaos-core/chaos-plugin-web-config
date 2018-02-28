@@ -1,7 +1,7 @@
-const ApiController = require('../api-controller');
+const NixApiController = require('../lib/nix-api-controller');
 const DiscordRestClient = require('../lib/discord-rest-client');
 
-class LoginController extends ApiController {
+class LoginController extends NixApiController {
   login(req, res) {
     DiscordRestClient
       .validateCode({
@@ -26,6 +26,33 @@ class LoginController extends ApiController {
             error
           });
       });
+  }
+
+  userInfo(req, res) {
+    let authToken = req.header('Authorization');
+
+    if(!authToken) {
+      return res
+        .status(401)
+        .json({
+          error: "Authorization header missing"
+        })
+    }
+
+    let discordClient = new DiscordRestClient(authToken);
+
+    discordClient.me()
+      .then((data) => {
+        return res
+          .status(200)
+          .json({
+            user: {
+              username: `${data.username}#${data.discriminator}`,
+              id: data.id,
+              avatar_id: data.avatar
+            },
+          });
+      })
   }
 }
 

@@ -4,13 +4,13 @@ import NixApiService from "../nix-api-service";
 
 class UserInfo extends Component {
   render() {
-    if (!NixApiService.userIsLoggedIn) {
+    if (!NixApiService.user) {
       return null;
     }
 
     return (
       <div className="user-info">
-        <span>User this logged in</span>
+        <span>{NixApiService.user.username}</span>
         <div className={`btn btn-small`} onClick={this.handleLogout.bind(this)}>Logout</div>
       </div>
     );

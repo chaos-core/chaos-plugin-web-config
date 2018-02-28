@@ -1,23 +1,36 @@
 const express = require('express');
+const fallback = require('express-history-api-fallback');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 
-const HomeController = require('./controllers/home');
-const DataController = require('./controllers/data');
-const LoginController = require('./controllers/login');
+const router = require('./config/router');
 
-module.exports = function (nix) {
-  let router = express.Router();
+class ApiServer {
+  constructor(nix, config) {
+    this.nix = nix;
+    this.config = config;
 
-  let home = new HomeController(nix);
-  let data = new DataController(nix);
-  let login = new LoginController(nix);
+    this.app = express();
 
-  router.get('/', (req, res) => home.index(req, res));
+    // Middleware
+    this.app.use(bodyParser.json());
+    this.app.use(cors({
+      origin: this.config.clientUrl,
+    }));
 
-  router.post('/login', (req, res) => login.login(req, res));
+    // Routes
+    this.app.use('/api', router(this.nix));
 
-  router.get('/data/read/:guildId/:keyword', (req, res) => data.read(req, res));
+    // Static client
+    if (this.config.serveClient) {
+      this.app.use(express.static(this.config.clientSrc));
+      this.app.use(fallback('index.html', {root: this.config.clientSrc}));
+    }
+  }
 
-  return router;
-};
+  listen(port, callback) {
+    this.app.listen(port, callback);
+  }
+}
 
-
+module.exports = ApiServer;
