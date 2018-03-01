@@ -7,18 +7,35 @@ const LoginController = require('../controllers/login.controller');
 module.exports = function (nix) {
   let router = express.Router();
 
-  let home = new HomeController(nix);
-  let data = new DataController(nix);
-  let login = new LoginController(nix);
+  let controllers = {
+    "home": new HomeController(nix),
+    "data": new DataController(nix),
+    "login": new LoginController(nix),
+  };
 
-  router.get('/', (req, res) => home.index(req, res));
+  const routes = {
+    'GET  /': 'home.index',
 
-  router.post('/login', (req, res) => login.login(req, res));
-  router.get('/user', (req, res) => login.userInfo(req, res));
+    'POST /login': 'login.login',
+    'GET  /user': 'login.userInfo',
 
-  router.get('/data/read/:guildId/:keyword', (req, res) => data.read(req, res));
+    'GET /data/read/:guildId/:keyword': 'data.read',
+  };
+
+  Object
+    .entries(routes)
+    .map(([key, value]) => {
+      let [method, path] = key.split(/ +/);
+      let [controller, action] = value.split('.');
+
+      nix.logger.debug(`NixModWeb: Adding route: ${method} ${path} => ${controller}.${action}`);
+
+      method = method.toLowerCase();
+      controller = controllers[controller];
+      action = controller[action].bind(controller);
+
+      router[method](path, action);
+    });
 
   return router;
 };
-
-
