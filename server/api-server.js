@@ -3,7 +3,7 @@ const fallback = require('express-history-api-fallback');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const router = require('./config/router');
+const router = require('./lib/router');
 
 class ApiServer {
   constructor(nix, config) {
