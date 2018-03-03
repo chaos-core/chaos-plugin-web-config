@@ -28,8 +28,8 @@ class ApiServer {
     }
   }
 
-  listen(port, callback) {
-    this.app.listen(port, callback);
+  listen(callback) {
+    this.app.listen(this.config.port, callback);
   }
 }
 

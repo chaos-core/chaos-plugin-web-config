@@ -20,7 +20,7 @@ class WebServerService {
     this.nix.logger.info(`NixModWeb: Starting web server...`);
 
     let ready$ = new Rx.Subject();
-    this.apiServer.listen(this.config.port, () => {
+    this.apiServer.listen(() => {
       ready$.onNext(true);
       ready$.onCompleted();
     });
