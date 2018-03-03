@@ -1,14 +1,15 @@
-const NixApiController = require('../lib/nix-api-controller');
 const DiscordRestClient = require('../lib/discord-rest-client');
 
-class LoginController extends NixApiController {
+class LoginController{
   login(req, res) {
+    let nix = req.app.locals.nix;
+
     DiscordRestClient
       .validateCode({
-        clientId: this.nix.config.discordApp.client_id,
-        clientSecret: this.nix.config.discordApp.client_secret,
+        clientId: nix.config.discordApp.client_id,
+        clientSecret: nix.config.discordApp.client_secret,
         code: req.body.code,
-        redirectUri: this.nix.config.webServer.clientUrl + '/login/verify',
+        redirectUri: nix.config.webServer.clientUrl + '/login/verify',
       })
       .then((response) => {
         res

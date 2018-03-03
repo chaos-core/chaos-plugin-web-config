@@ -12,6 +12,12 @@ class ApiServer {
 
     this.app = express();
 
+    // Attach locals
+    this.app.locals = {
+      nix: this.nix,
+      config: this.config,
+    };
+
     // Middleware
     this.app.use(bodyParser.json());
     this.app.use(cors({
@@ -30,6 +36,14 @@ class ApiServer {
 
   listen(callback) {
     this.app.listen(this.config.port, callback);
+  }
+
+  get locals() {
+    return this.app.locals;
+  }
+
+  set locals(value) {
+    this.app.locals = value;
   }
 }
 

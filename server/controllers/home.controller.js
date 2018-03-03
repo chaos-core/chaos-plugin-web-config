@@ -1,6 +1,4 @@
-const NixApiController = require('../lib/nix-api-controller');
-
-class HomeController extends NixApiController {
+class HomeController {
   index(req, res) {
     res.send('Hello World');
   }
