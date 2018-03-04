@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const router = require('./lib/router');
+const AuthService = require('./lib/services/auth-service');
 
 class ApiServer {
   constructor(nix, config) {
@@ -16,6 +17,9 @@ class ApiServer {
     this.app.locals = {
       nix: this.nix,
       config: this.config,
+      services: {
+        AuthService: new AuthService({tokenSecret: this.config.tokenSecret}),
+      },
     };
 
     // Middleware
