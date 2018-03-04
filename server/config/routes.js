@@ -2,6 +2,8 @@ const HomeController = require('../controllers/home.controller');
 const LoginController = require('../controllers/login.controller');
 const DataController = require('../controllers/data.controller');
 
+const filters = require('./filters');
+
 function Routes() {
   let home = new HomeController();
   let login = new LoginController();
@@ -11,7 +13,7 @@ function Routes() {
     'GET  /': home.index,
 
     'POST /login': login.login,
-    'GET  /user': login.userInfo,
+    'GET  /user': [filters.authorize, login.userInfo],
 
     'GET /data/read/:guildId/:keyword': data.read,
   }
