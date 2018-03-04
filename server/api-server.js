@@ -7,6 +7,10 @@ const router = require('./lib/router');
 const AuthService = require('./lib/services/auth-service');
 
 class ApiServer {
+  get locals() {
+    return this.app.locals;
+  }
+
   constructor(nix, config) {
     this.nix = nix;
     this.config = config;
@@ -42,12 +46,7 @@ class ApiServer {
     this.app.listen(this.config.port, callback);
   }
 
-  get locals() {
-    return this.app.locals;
-  }
 
-  set locals(value) {
-    this.app.locals = value;
   }
 }
 
