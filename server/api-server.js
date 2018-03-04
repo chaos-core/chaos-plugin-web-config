@@ -40,13 +40,28 @@ class ApiServer {
       this.app.use(express.static(this.config.clientSrc));
       this.app.use(fallback('index.html', {root: this.config.clientSrc}));
     }
+
+    // Attach error handler
+    this.app.use(this.handleError.bind(this));
   }
 
   listen(callback) {
     this.app.listen(this.config.port, callback);
   }
 
+  handleError(error, req, res, next) {
+    let route = req.route.path;
+    let method = req.method;
 
+    let errorMessage = `Error for ${method} ${route}: ${error.name} - ${error.message}`;
+
+    if (error.stack) {
+      errorMessage += `\n${error.stack}`;
+    }
+
+    this.nix.logger.error(`NixModWeb: ${errorMessage}`);
+
+    res.status(500).json({ error: error.message });
   }
 }
 
