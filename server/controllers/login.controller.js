@@ -29,18 +29,9 @@ class LoginController{
       });
   }
 
-  userInfo(req, res) {
-    let authToken = req.header('Authorization');
-
-    if(!authToken) {
-      return res
-        .status(401)
-        .json({
-          error: "Authorization header missing"
-        })
-    }
-
-    let discordClient = new DiscordRestClient(authToken);
+  userInfo(req, res, next) {
+    let AuthService = req.app.locals.services.AuthService;
+    let discordClient = new DiscordRestClient(AuthService.getAuthToken(req));
 
     discordClient.me()
       .then((data) => {
@@ -54,6 +45,7 @@ class LoginController{
             },
           });
       })
+      .catch((error) => next(error));
   }
 }
 
