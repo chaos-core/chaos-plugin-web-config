@@ -11,7 +11,10 @@ module.exports = {
 
   webServer: {
     port: 3000,
-    clientUrl: 'http://localhost:3000'
+    clientUrl: 'http://localhost:3000',
+
+    // Use password to encrypt Web Tokens
+    tokenSecret: 'some_string',
   },
 
   logger: {
