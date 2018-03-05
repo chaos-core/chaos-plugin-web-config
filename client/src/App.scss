@@ -1,5 +1,22 @@
+.btn {
+  display: inline-block;
+  margin: .5em;
+  padding: 1em;
 
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 
+  transition: box-shadow .5s;
 
+  &-small {
+    padding: 0.5em;
+  }
 
+  &:hover {
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+  }
+
+  &:active {
+    transition: box-shadow .05s;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+  }
 }

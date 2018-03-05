@@ -4,8 +4,11 @@
   "description": "Web site for configuring nix-core based discord bots",
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
-    "express-history-api-fallback": "^2.2.1"
+    "express-history-api-fallback": "^2.2.1",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "autoprefixer": "7.1.6",
@@ -39,10 +42,12 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
+    "query-string": "^5.1.0",
     "raf": "3.4.0",
     "react": "^16.2.0",
     "react-dev-utils": "^5.0.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "rx": "^4.1.0",
     "sass-loader": "^6.0.6",
     "style-loader": "0.19.0",

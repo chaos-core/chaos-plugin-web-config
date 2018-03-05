@@ -1,8 +1,6 @@
-const ApiController = require('../api-controller');
-
-class DataController extends ApiController {
+class DataController {
   read(req, res) {
-    this.nix.dataService
+    req.app.locals.nix.dataService
       .getGuildData(req.params.guildId, req.params.keyword)
       .subscribe(
         (data) => {
