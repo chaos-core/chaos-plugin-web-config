@@ -1,4 +1,5 @@
 import Request from 'request-promise';
+import jwt from 'jsonwebtoken';
 
 import Config from './config';
 
@@ -30,7 +31,9 @@ class NixApiService {
   login(discordToken) {
     return this.post('/login', { code: discordToken })
       .then((res) => {
-        localStorage.setItem(LSKEY_ACCESS_TOKEN, res.access_token);
+        console.log("JWT:", jwt.decode(res.accessToken));
+
+        localStorage.setItem(LSKEY_ACCESS_TOKEN, res.accessToken);
         return this.getUserInfo()
       })
       .then((res) => {
@@ -50,7 +53,7 @@ class NixApiService {
   }
 
   get userIsLoggedIn() {
-    return this.user !== null;
+    return this.accessToken !== null;
   }
 
   get user() {

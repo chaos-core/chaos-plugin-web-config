@@ -4,16 +4,15 @@ module.exports = {
   ownerUserId: "ownerUserId",
   loginToken: "loginToken",
 
-  discordApp: {
-    client_id: 'some_id',
-    client_secret: 'some_string',
-  },
-
   webServer: {
     port: 3000,
-    clientUrl: 'http://localhost:3000',
+    clientUrl: 'https://localhost:3000',
 
-    // Use password to encrypt Web Tokens
+    discordClientId: 'some_string',
+    discordClientSecret: 'some_string',
+
+    oAuthRedirectPath: '/login/verify',
+
     tokenSecret: 'some_string',
   },
 

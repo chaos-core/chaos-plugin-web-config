@@ -8,9 +8,18 @@ class WebServerService {
     this.nix = nix;
     this.config = Object.assign({
       port: 3000,
-      serveClient: true,
       clientUrl: 'https://localhost:3000',
+
+      serveClient: true,
       clientSrc: Path.resolve(__dirname, './client/build'),
+
+      discordClientId: null,
+      discordClientSecret: null,
+      discordApiUrl: 'https://discordapp.com/api',
+
+      oAuthRedirectPath: '/login/verify',
+
+      tokenSecret: null,
     }, nix.config.webServer);
 
     this.apiServer = new ApiServer(this.nix, this.config)
