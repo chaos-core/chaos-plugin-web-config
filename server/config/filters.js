@@ -8,6 +8,17 @@ module.exports = {
         res.locals.jwt = payload;
         next();
       })
-      .catch((error) => next(error));
+      .catch((error) => {
+        switch (error.name) {
+          case "MissingAuthTokenError":
+          case "TokenExpiredError":
+          case "JsonWebTokenError":
+            return res
+              .status(401)
+              .json({error: "Not authorized"});
+          default:
+            return next(error);
+        }
+      });
   },
 };
