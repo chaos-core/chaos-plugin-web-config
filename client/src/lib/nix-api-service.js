@@ -34,15 +34,16 @@ class NixApiService {
         console.log("JWT:", jwt.decode(res.accessToken));
 
         localStorage.setItem(LSKEY_ACCESS_TOKEN, res.accessToken);
-        return this.getUserInfo()
+        return this.getUser()
       })
       .then((res) => {
         localStorage.setItem(LSKEY_USER, JSON.stringify(res.user));
       });
   }
 
-  getUserInfo() {
-    return this.get('/user');
+  getUser() {
+    return this.get('/user')
+      .then((response) => response.user);
   }
 
   logout() {
