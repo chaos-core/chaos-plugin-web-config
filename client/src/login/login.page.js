@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import DiscordLoginBtn from "./discord-login-btn";
-import NixApiService from "../nix-api-service";
+import NixApiService from "../lib/nix-api-service";
 
 class LoginPage extends Component {
   render() {

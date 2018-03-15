@@ -3,20 +3,32 @@ const Request = require('request-promise');
 const discordUrl = 'https://discordapp.com/api';
 
 class DiscordWebClient {
-  constructor(authToken) {
-    this.authToken = authToken;
+  constructor(discordToken) {
+    this.discordToken = discordToken;
+  }
+
+  handleDiscordError(error) {
+    throw {
+      name: 'DiscordAPIError',
+      message: error.message,
+      code: error.code
+    }
   }
 
   get(path) {
     return Request
       .get({
         url: discordUrl + path,
-        headers: { 'Authorization': `Bearer ${this.authToken}` }
+        headers: { 'Authorization': `Bearer ${this.discordToken}` }
       })
-      .then((response) => JSON.parse(response));
+      .then((response) => JSON.parse(response))
+      .catch((response) => {
+        let error = JSON.parse(response.error);
+        this.handleDiscordError(error);
+      });
   }
 
-  static validateCode({ clientId, clientSecret, code, redirectUri }) {
+  static verifyCode({ clientId, clientSecret, code, redirectUri }) {
     let data = {
       'client_id': clientId,
       'client_secret': clientSecret,

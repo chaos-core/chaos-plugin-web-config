@@ -1,19 +1,37 @@
 import React, {Component} from 'react';
 
-import NixApiService from "../nix-api-service";
+import StateService from '../lib/state-service';
+import NixApiService from "../lib/nix-api-service";
 
 class UserInfo extends Component {
-  render() {
-    if (!NixApiService.user) {
-      return null;
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+    };
+  }
 
-    return (
-      <div className="user-info">
-        <span>{NixApiService.user.username}</span>
-        <div className={`btn btn-small`} onClick={this.handleLogout.bind(this)}>Logout</div>
-      </div>
-    );
+  componentWillMount() {
+    StateService.getUser()
+      .then((user) => this.setState({user}))
+  }
+
+  render() {
+    if (this.state.user === null) {
+      return (
+        <div className="user-info">
+          Loading...
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="user-info">
+          <span>{this.state.user.username}</span>
+          <div className={`btn btn-small`} onClick={this.handleLogout.bind(this)}>Logout</div>
+        </div>
+      );
+    }
   }
 
   handleLogout(e) {

@@ -22,7 +22,7 @@ class ApiServer {
       nix: this.nix,
       config: this.config,
       services: {
-        AuthService: new AuthService({tokenSecret: this.config.tokenSecret}),
+        AuthService: new AuthService(this.app, this.config),
       },
     };
 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 
-import NixApiService from "../nix-api-service";
+import NixApiService from "../lib/nix-api-service";
 import UserInfo from "../shared/user-info";
 
 class ServersPage extends Component {
