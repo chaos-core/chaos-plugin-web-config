@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import NixApiService from "../nix-api-service";
+import NixApiService from "../lib/nix-api-service";
 
 class UserInfo extends Component {
   render() {

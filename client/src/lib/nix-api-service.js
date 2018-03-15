@@ -1,7 +1,7 @@
 import Request from 'request-promise';
 import jwt from 'jsonwebtoken';
 
-import Config from './config';
+import Config from '../config';
 
 const LSKEY_ACCESS_TOKEN = 'auth.accessToken';
 const LSKEY_USER = 'auth.user';

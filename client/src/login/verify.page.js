@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 
-import NixApiService from "../nix-api-service";
+import NixApiService from "../lib/nix-api-service";
 
 class LoginVerifyPage extends Component {
   constructor(props) {
