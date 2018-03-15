@@ -11,21 +11,37 @@ class NixApiService {
     this.serverUrl = serverUrl;
   }
 
+  handleErrorResponse(errorResponse) {
+    switch (errorResponse.statusCode) {
+      case 401:
+        return this.logout()
+          .then(() => {
+            window.location = '/';
+          });
+      default:
+        throw errorResponse;
+    }
+  }
+
   post(path, data) {
-    return Request.post({
-      url: this.serverUrl + path,
-      json: true,
-      body: data,
-      headers: { Authorization: this.accessToken },
-    })
+    return Request
+      .post({
+        url: this.serverUrl + path,
+        json: true,
+        body: data,
+        headers: { Authorization: this.accessToken },
+      })
+      .catch((error) => this.handleErrorResponse(error));
   }
 
   get(path) {
-    return Request.get({
-      url: this.serverUrl + path,
-      json: true,
-      headers: { Authorization: this.accessToken },
-    })
+    return Request
+      .get({
+        url: this.serverUrl + path,
+        json: true,
+        headers: { Authorization: this.accessToken },
+      })
+      .catch((error) => this.handleErrorResponse(error));
   }
 
   login(discordToken) {
