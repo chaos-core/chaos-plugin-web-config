@@ -33,7 +33,19 @@ class LoginController{
             },
           });
       })
-      .catch((error) => next(error));
+      .catch((error) => {
+        switch(error.name) {
+          case "DiscordAPIError":
+            if (error.message === "401: Unauthorized") {
+              return res.status(401).json({error: "Not authorized"});
+            }
+            else {
+              return next(error);
+            }
+          default:
+            return next(error);
+        }
+      });
   }
 }
 

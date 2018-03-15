@@ -7,13 +7,25 @@ class DiscordWebClient {
     this.discordToken = discordToken;
   }
 
+  handleDiscordError(error) {
+    throw {
+      name: 'DiscordAPIError',
+      message: error.message,
+      code: error.code
+    }
+  }
+
   get(path) {
     return Request
       .get({
         url: discordUrl + path,
         headers: { 'Authorization': `Bearer ${this.discordToken}` }
       })
-      .then((response) => JSON.parse(response));
+      .then((response) => JSON.parse(response))
+      .catch((response) => {
+        let error = JSON.parse(response.error);
+        this.handleDiscordError(error);
+      });
   }
 
   static verifyCode({ clientId, clientSecret, code, redirectUri }) {
