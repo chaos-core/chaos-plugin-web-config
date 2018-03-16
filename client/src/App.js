@@ -1,26 +1,18 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
 
-import LoginPage from './login/login.page';
-import LoginVerifyPage from "./login/verify.page";
-import ServersPage from "./servers/servers.page";
+import store from "./lib/redux-store";
+import history from "./lib/history";
 
-import './App.scss';
+import MainLayout from './layout/main.layout';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/login' component={LoginPage}/>
-          <Route exact path='/login/verify' component={LoginVerifyPage}/>
-          <Route path='/servers' component={ServersPage}/>
-          { /* redirect if no route matches */ }
-          <Redirect to='/login'/>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <MainLayout/>
+    </ConnectedRouter>
+  </Provider>
+);
 
 export default App;
