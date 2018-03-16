@@ -1,11 +1,10 @@
 import React from 'react';
 
-import UserInfo from "../../shared/user-info";
+import ServerList from './server-list';
 
 const ServersPage = () => (
   <div className="page servers">
-    <UserInfo/>
-    Server list!
+    <ServerList/>
   </div>
 );
 

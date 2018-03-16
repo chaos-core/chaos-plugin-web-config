@@ -36,8 +36,13 @@ class AuthService {
         redirectUri: redirectUri,
       })
       .then((response) => {
+        let discordClient = new DiscordRestClient(response.access_token);
+        return discordClient.me().then((user) => ({response, user}))
+      })
+      .then(({response, user}) => {
         return this.createToken({
           discordToken: response.access_token,
+          userId: user.id,
         }, {
           expiresIn: response.expires_in
         });

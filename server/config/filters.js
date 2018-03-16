@@ -6,6 +6,7 @@ module.exports = {
       .then((authToken) => AuthService.decodeToken(authToken))
       .then((payload) => {
         res.locals.jwt = payload;
+        res.locals.userId = payload.userId;
         next();
       })
       .catch((error) => {
