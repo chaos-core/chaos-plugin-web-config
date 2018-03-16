@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 
+import NixApiClient from '../../lib/nix-api-client';
+
 import Server from './server';
 
 class ServerList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      servers: [1,2,3,4,5,6],
+      fetching: true,
+      servers: [],
     }
   }
 
@@ -15,11 +18,30 @@ class ServerList extends Component {
       <div>
         Server List
 
-        {this.state.servers.map((server, index) => (
-          <Server key={index} server={server}/>
-        ))}
+        {
+          this.state.fetching
+          ? <div>Loading Servers...</div>
+          : this.renderList()
+        }
       </div>
     );
+  }
+
+  renderList() {
+    return this.state.servers.map((server, index) => (<Server key={index} server={server}/>))
+  }
+
+  componentDidMount() {
+    this.fetchServers();
+  }
+
+  fetchServers() {
+    NixApiClient
+      .fetchServers()
+      .then((servers) => this.setState({
+        fetching: false,
+        servers,
+      }))
   }
 };
 

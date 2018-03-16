@@ -48,6 +48,10 @@ class NixApiClient {
   getUser() {
     return this.get('/user').then((response) => response.user);
   }
+
+  fetchServers() {
+    return this.get('/servers').then((response) => response.servers);
+  }
 }
 
 export default new NixApiClient();
