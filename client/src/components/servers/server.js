@@ -2,7 +2,7 @@ import React from 'react';
 
 const Server = ({server}) => (
   <div>
-    Server {server}!
+    Server {server.name} ({server.id})!
   </div>
 );
 

@@ -28,7 +28,11 @@ class ServerList extends Component {
   }
 
   renderList() {
-    return this.state.servers.map((server, index) => (<Server key={index} server={server}/>))
+    return this.state
+      .servers
+      .map((server, index) => (
+        <Server key={index} server={server}/>
+      ));
   }
 
   componentDidMount() {
