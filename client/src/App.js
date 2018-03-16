@@ -7,6 +7,9 @@ import history from "./lib/history";
 
 import MainLayout from './layout/main.layout';
 
+import 'normalize.css';
+import './App.scss';
+
 const App = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>

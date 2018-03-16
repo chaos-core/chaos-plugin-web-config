@@ -1,14 +1,30 @@
+@import 'variables.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto:500');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  color: $colour-black;
+}
+
+body {
+  background: $colour-bg;
+}
+
 .btn {
   display: inline-block;
-  margin: .5em;
+  margin: 0.5em;
   padding: 1em;
+
+  border-radius: 3px;
 
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
 
   transition: box-shadow .5s;
 
   &-small {
-    padding: 0.5em;
+    padding: .5em;
   }
 
   &:hover {

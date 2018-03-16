@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ServerList from './server-list';
+import ServerList from '../components/servers/server-list';
 
 const ServersPage = () => (
   <div className="page servers">

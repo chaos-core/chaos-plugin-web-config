@@ -4,6 +4,9 @@ import queryString from 'query-string';
 
 import Config from '../../config';
 
+import "./discord-login-btn.scss";
+import discordLogo from "./discord-logo.svg";
+
 const mapStateToProps = (state, ownProps) => ({
 
 });
@@ -24,7 +27,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const DiscordLoginBtnView = ({onClick}) => (
   <div className="btn discord-login-btn" onClick={onClick}>
-    Login with Discord
+    <img alt={"Discord"} src={discordLogo}/>
   </div>
 );
 

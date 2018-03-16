@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {push} from "react-router-redux";
 import queryString from "query-string";
 
-import NixApiService from "../../lib/nix-api-client";
+import NixApiService from "../lib/nix-api-client";
 
 const mapStateToProps = (state, ownProps) => ({
   location: state.router.location

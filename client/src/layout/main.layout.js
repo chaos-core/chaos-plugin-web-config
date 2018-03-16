@@ -7,9 +7,7 @@ import {SET_USER} from "../actions/auth.actions";
 
 import LoggedOutLayout from './logged-out.layout';
 import LoggedInLayout from './logged-in.layout';
-import LoggingInPage from '../components/login/logging-in.page';
-
-import '../App.scss';
+import LoggingInPage from '../pages/logging-in.page';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.auth.user,

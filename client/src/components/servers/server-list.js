@@ -4,6 +4,8 @@ import NixApiClient from '../../lib/nix-api-client';
 
 import Server from './server';
 
+import './server-list.scss';
+
 class ServerList extends Component {
   constructor(props) {
     super(props);
@@ -15,16 +17,12 @@ class ServerList extends Component {
 
   render() {
     return (
-      <div>
-        Server List
-
-        <ul>
-          {
-            this.state.fetching
-            ? <li>Loading Servers...</li>
-            : this.renderList()
-          }
-        </ul>
+      <div className={"server-list"}>
+        {
+          this.state.fetching
+          ? <div>Loading Servers...</div>
+          : this.renderList()
+        }
       </div>
     );
   }
@@ -33,9 +31,7 @@ class ServerList extends Component {
     return this.state
       .servers
       .map((server, index) => (
-        <li key={index}>
-          <Server server={server}/>
-        </li>
+        <Server key={index} server={server}/>
       ));
   }
 
