@@ -1,9 +1,19 @@
-import React, { Component } from 'react';
-import queryString from 'query-string';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {push} from "react-router-redux";
+import queryString from "query-string";
 
-import NixApiService from "../lib/nix-api-service";
+import NixApiService from "../../lib/nix-api-client";
 
-class LoginVerifyPage extends Component {
+const mapStateToProps = (state, ownProps) => ({
+  location: state.router.location
+});
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onVerified: () => dispatch(push('/')),
+});
+
+class LoginVerifyPageView extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,12 +41,17 @@ class LoginVerifyPage extends Component {
     let discordToken = params.code;
 
     NixApiService.login(discordToken)
-      .then(() => this.props.history.push('/servers'))
+      .then(() => this.props.onVerified())
       .catch((error) => {
         this.setState({verifying: false});
         console.error(error);
       })
   }
 }
+
+const LoginVerifyPage = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginVerifyPageView);
 
 export default LoginVerifyPage;

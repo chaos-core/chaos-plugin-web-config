@@ -1,49 +1,24 @@
-import React, {Component} from 'react';
+import React from 'react';
+import {connect} from "react-redux";
 
-import StateService from '../lib/state-service';
-import NixApiService from "../lib/nix-api-service";
+import {LOGOUT} from "../actions/auth.actions";
 
-class UserInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: null,
-    };
-  }
+const mapStateToProps = (state, ownProps) => ({
+  user: state.auth.user,
+});
 
-  componentWillMount() {
-    StateService.getUser()
-      .then((user) => this.setState({user}))
-  }
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onLogout: () => dispatch(LOGOUT()),
+});
 
-  render() {
-    if (this.state.user === null) {
-      return (
-        <div className="user-info">
-          Loading...
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className="user-info">
-          <span>{this.state.user.username}</span>
-          <div className={`btn btn-small`} onClick={this.handleLogout.bind(this)}>Logout</div>
-        </div>
-      );
-    }
-  }
+const UserInfoView = ({user, onLogout}) => (
+  <div className="user-info">
+    <span>{user.username}</span>
+    <div className={`btn btn-small`} onClick={onLogout}>Logout</div>
+  </div>
+);
 
-  handleLogout(e) {
-    e.preventDefault();
-
-    NixApiService.logout()
-      .then(() => {
-        if (this.props.onLogout) {
-          this.props.onLogout();
-        }
-      })
-  }
-}
-
-export default UserInfo;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(UserInfoView);
