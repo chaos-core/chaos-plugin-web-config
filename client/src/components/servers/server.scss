@@ -1,7 +1,11 @@
+@import "../../variables";
+
 .server {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  background: $colour-white;
 
   .server-icon {
     max-height: 128px;
