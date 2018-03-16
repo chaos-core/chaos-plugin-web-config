@@ -1,18 +1,26 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import Server from './server';
 
-const ServerList = () => (
-  <div>
-    Server List
+class ServerList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      servers: [1,2,3,4,5,6],
+    }
+  }
 
-    <Server server={{}}/>
-    <Server server={{}}/>
-    <Server server={{}}/>
-    <Server server={{}}/>
-    <Server server={{}}/>
-    <Server server={{}}/>
-  </div>
-);
+  render() {
+    return (
+      <div>
+        Server List
+
+        {this.state.servers.map((server, index) => (
+          <Server key={index} server={server}/>
+        ))}
+      </div>
+    );
+  }
+};
 
 export default ServerList;
