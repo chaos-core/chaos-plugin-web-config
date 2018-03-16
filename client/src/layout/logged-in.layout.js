@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
 
-import ConnectedSwitch from "../shared/connected-switch";
+import ConnectedSwitch from "../components/shared/connected-switch";
 
 import ServersPage from '../components/servers/servers.page';
 
