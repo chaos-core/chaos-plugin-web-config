@@ -18,11 +18,13 @@ class ServerList extends Component {
       <div>
         Server List
 
-        {
-          this.state.fetching
-          ? <div>Loading Servers...</div>
-          : this.renderList()
-        }
+        <ul>
+          {
+            this.state.fetching
+            ? <li>Loading Servers...</li>
+            : this.renderList()
+          }
+        </ul>
       </div>
     );
   }
@@ -31,7 +33,9 @@ class ServerList extends Component {
     return this.state
       .servers
       .map((server, index) => (
-        <Server key={index} server={server}/>
+        <li key={index}>
+          <Server server={server}/>
+        </li>
       ));
   }
 

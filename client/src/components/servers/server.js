@@ -2,7 +2,8 @@ import React from 'react';
 
 const Server = ({server}) => (
   <div>
-    Server {server.name} ({server.id})!
+    <div>{server.name}</div>
+    <div><small>{server.id}</small></div>
   </div>
 );
 
