@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import NixApiClient from '../../lib/nix-api-client';
 
+import Loading from '../shared/loading';
 import Server from './server';
 
 import './server-list.scss';
@@ -20,7 +21,7 @@ class ServerList extends Component {
       <div className={"server-list"}>
         {
           this.state.fetching
-          ? <div>Loading Servers...</div>
+          ? <Loading/>
           : this.renderList()
         }
       </div>

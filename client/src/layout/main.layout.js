@@ -7,7 +7,7 @@ import {SET_USER} from "../actions/auth.actions";
 
 import LoggedOutLayout from './logged-out.layout';
 import LoggedInLayout from './logged-in.layout';
-import LoggingInPage from '../pages/logging-in.page';
+import Loading from '../components/shared/loading';
 
 const mapStateToProps = (state, ownProps) => ({
   user: state.auth.user,
@@ -24,7 +24,7 @@ class MainLayoutView extends Component {
       return (<LoggedOutLayout/>);
     }
     else if (!this.props.user) {
-      return (<LoggingInPage/>);
+      return (<Loading/>);
     }
     else {
       return (<LoggedInLayout/>);

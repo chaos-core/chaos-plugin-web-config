@@ -5,6 +5,8 @@ import queryString from "query-string";
 
 import NixApiService from "../lib/nix-api-client";
 
+import Loading from "../components/shared/loading";
+
 const mapStateToProps = (state, ownProps) => ({
   location: state.router.location
 });
@@ -24,8 +26,9 @@ class LoginVerifyPageView extends Component {
   render() {
     return (
       <div className="page login-verify">
-        { this.state.verifying
-          ? (<div>Working...</div>)
+        {
+          this.state.verifying
+          ? (<Loading/>)
           : (<div>Errored!</div>)
         }
       </div>
