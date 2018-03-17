@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {SET_SERVER} from "../actions/servers.actions";
+import {FETCH_SERVER} from "../actions/servers.actions";
 
 import Loading from '../components/shared/loading';
 import ChangeServerBtn from "../components/servers/change-server-btn";
@@ -11,7 +11,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onMount: () => dispatch(SET_SERVER({ id: ownProps.match.params.id }))
+  onMount: () => dispatch(FETCH_SERVER(ownProps.match.params.id))
 });
 
 class ServerPageView extends Component {
@@ -22,7 +22,7 @@ class ServerPageView extends Component {
     else {
       return (
         <div className={"server-page"}>
-          Current Server: {this.props.server.id}
+          Current Server: {this.props.server.name}
           <ChangeServerBtn/>
         </div>
       );

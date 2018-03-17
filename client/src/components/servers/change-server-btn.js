@@ -9,7 +9,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 const ChangeServerBtnView = ({onClick}) => (
-  <div className={"btn btn-small"} onClick={onClick}>Change Server</div>
+  <div>
+    <div className={"btn btn-small"} onClick={onClick}>Change Server</div>
+  </div>
 );
 
 const ChangeServerBtn = connect(
