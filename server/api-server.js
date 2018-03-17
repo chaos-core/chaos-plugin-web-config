@@ -61,7 +61,17 @@ class ApiServer {
 
     this.nix.logger.error(`NixModWeb: ${errorMessage}`);
 
-    res.status(500).json({ error: error.message });
+    let resBody = { error: error.message };
+
+    if (req.hostname === "localhost") {
+      resBody.stack =
+        error.stack
+          .split('\n')
+          .map((line) => line.trim())
+          .filter((line) => !line.match(/[\\\/]node_modules[\\\/]/));
+    }
+
+    res.status(500).json(resBody);
   }
 }
 
