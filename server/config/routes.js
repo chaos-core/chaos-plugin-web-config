@@ -18,6 +18,7 @@ function Routes() {
     'GET /user': [filters.authorize, login.userInfo],
 
     'GET /servers': [filters.authorize, servers.index],
+    'GET /server/:id': [filters.authorize, servers.view],
 
     'GET /data/read/:guildId/:keyword': data.read,
   }

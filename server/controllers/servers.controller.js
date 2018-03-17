@@ -18,6 +18,20 @@ class ServersController {
         res.json({ servers: guilds });
       });
   }
+
+  view(req, res) {
+    let guildId = req.params.id;
+
+    Rx.Observable
+      .of('')
+      .subscribe(() => {
+        res.json({
+          server: {
+            id: guildId,
+          },
+        });
+      });
+  }
 }
 
 function filterUserIsAdmin(nix, guild, userId) {
