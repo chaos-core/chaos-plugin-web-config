@@ -20,17 +20,38 @@ class ServersController {
   }
 
   view(req, res) {
+    let nix = req.app.locals.nix;
     let guildId = req.params.id;
 
     Rx.Observable
-      .of('')
-      .subscribe(() => {
-        res.json({
-          server: {
-            id: guildId,
-          },
-        });
-      });
+      .of(nix.discord.guilds.get(guildId))
+      .map((guild) => {
+        if (!guild) { throw {
+          name: "GuildNotFoundError",
+          message: `Guild with id '${guildId}' was not found`};
+        }
+        return guild;
+      })
+      .subscribe(
+        (guild) => {
+          res.json({
+            server: {
+              id: guild.id,
+              name: guild.name,
+            },
+          });
+        },
+        (error) => {
+          switch(error.name) {
+            case "GuildNotFoundError":
+              return res
+                .status(400)
+                .json({error: error.message});
+            default:
+              throw error;
+          }
+        }
+      );
   }
 }
 
