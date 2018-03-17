@@ -1,6 +1,10 @@
 @import "../../variables";
 
+$icon-size: 128px;
+
 .server {
+  width: $icon-size + 24px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,9 +12,7 @@
   background: $colour-white;
 
   .server-icon {
-    max-height: 128px;
-    max-width: 128px;
-
+    width: $icon-size;
     margin-bottom: 15px;
 
     border-radius: 50%;

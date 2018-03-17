@@ -14,8 +14,8 @@ body {
 
 .btn {
   display: inline-block;
-  margin: 0.5em;
-  padding: 1em;
+  margin: 8px;
+  padding: 12px;
 
   border-radius: 3px;
 
@@ -24,7 +24,7 @@ body {
   transition: box-shadow .5s;
 
   &-small {
-    padding: .5em;
+    padding: 8px;
   }
 
   &:hover {
