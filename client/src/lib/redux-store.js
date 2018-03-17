@@ -1,5 +1,6 @@
 import {routerMiddleware} from "react-router-redux";
 import {applyMiddleware, combineReducers, createStore, compose} from "redux";
+import thunk from 'redux-thunk';
 
 import history from './history';
 import reducers from '../reducers';
@@ -11,6 +12,7 @@ const store = createStore(
   composeEnhancers(
     applyMiddleware(
       routerMiddleware(history),
+      thunk,
     )
   )
 );
