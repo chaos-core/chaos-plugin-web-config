@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {SET_SERVER} from "../actions/server.actions";
 
 import Loading from '../components/shared/loading';
-import ChangeServerBtn from "../components/servers/change-server-btn";
+import ServerHeader from "../components/servers/server-header";
 
 const mapStateToProps = (state) => ({
   server: state.server,
@@ -22,8 +22,7 @@ class ServerPageView extends Component {
     else {
       return (
         <div className={"server-page"}>
-          Current Server: {this.props.server.name}
-          <ChangeServerBtn/>
+          <ServerHeader/>
         </div>
       );
     }

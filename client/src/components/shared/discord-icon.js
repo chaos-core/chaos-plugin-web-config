@@ -18,6 +18,8 @@ function getUrl(options) {
       return base + `avatars/${options.userId}/${options.iconId}.png`;
     case "app":
       return base + `app-icons/${options.appId}/${options.iconId}.png`;
+    case "placeholder":
+      return "http://via.placeholder.com/128x128.png";
     default:
       return undefined;
   }
