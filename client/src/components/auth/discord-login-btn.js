@@ -1,11 +1,9 @@
-import React from 'react';
 import {connect} from 'react-redux'
 import queryString from 'query-string';
 
 import Config from '../../config';
 
-import "./discord-login-btn.scss";
-import discordLogo from "./discord-logo.svg";
+import DiscordLoginBtnView from './discord-login-btn.view';
 
 const mapStateToProps = (state, ownProps) => ({
 
@@ -24,12 +22,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     window.location = url;
   },
 });
-
-const DiscordLoginBtnView = ({onClick}) => (
-  <div className="btn discord-login-btn" onClick={onClick}>
-    <img alt={"Discord"} src={discordLogo}/>
-  </div>
-);
 
 export default connect(
   mapStateToProps,
