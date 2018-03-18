@@ -10,7 +10,7 @@ import UserInfo from '../components/shared/user-info';
 import './logged-in.layout.scss';
 
 const LoggedInLayout = () => (
-  <div className={"layout logged-in"}>
+  <div className={"logged-in-layout"}>
     <UserInfo/>
     <ConnectedSwitch>
       <Route path='/servers' component={ServersPage}/>

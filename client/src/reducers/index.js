@@ -1,11 +1,11 @@
 import {combineReducers} from "redux";
 
 import {routerReducer} from "react-router-redux";
-import serversReducer from "./servers.reducer";
+import serverReducer from "./server.reducer";
 import authReducer from "./auth.reducer";
 
 export default combineReducers({
-  servers: serversReducer,
+  server: serverReducer,
   router: routerReducer,
   auth: authReducer,
 });

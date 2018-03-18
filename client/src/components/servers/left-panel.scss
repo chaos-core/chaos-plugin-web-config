@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.left-panel {
+  display: inline-block;
+  width: 228px;
+
+  padding: 24px;
+
+  background: $colour-primary;
+  color: $colour-tertiary;
+
+  box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+
+  z-index: 10;
+}

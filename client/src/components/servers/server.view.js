@@ -1,16 +1,13 @@
 import React from 'react';
 
 import "./server.scss";
+import DiscordIcon from "../shared/discord-icon";
 
 const ServerView = ({server, onClick}) => (
   <div className={"btn server"} onClick={onClick}>
-    <img className={"server-icon"} alt={`${server.name} icon`} src={serverIconUrl(server)}/>
+    <DiscordIcon alt={server.name} type={'guild'} guildId={server.id} iconId={server.iconId}/>
     <div className={"name"}>{server.name}</div>
   </div>
 );
-
-function serverIconUrl(server) {
-  return `https://cdn.discordapp.com/icons/${server.id}/${server.iconId}.png`;
-}
 
 export default ServerView;
