@@ -3,12 +3,12 @@ import {connect} from 'react-redux';
 
 import {SET_SERVER} from "../actions/server.actions";
 
-import Loading from '../components/shared/loading';
-import ServerHeader from "../components/servers/server-header";
+import LeftPanel from "../components/servers/left-panel";
+import RightPanel from "../components/servers/right-panel";
 
-const mapStateToProps = (state) => ({
-  server: state.server,
-});
+import './server.page.scss';
+
+const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onMount: () => dispatch(SET_SERVER(ownProps.match.params.id))
@@ -16,16 +16,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 class ServerPageView extends Component {
   render() {
-    if (!this.props.server) {
-      return (<Loading />)
-    }
-    else {
-      return (
-        <div className={"server-page"}>
-          <ServerHeader/>
-        </div>
-      );
-    }
+    return(
+      <div className={"server-page"}>
+        <LeftPanel/>
+        <RightPanel/>
+      </div>
+    );
   }
 
   componentDidMount() {
