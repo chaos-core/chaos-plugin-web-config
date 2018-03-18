@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import NixApiClient from '../../lib/nix-api-client';
 
 import Loading from '../shared/loading';
+import Module from './module';
 
 const mapStateToProps = (state, ownProps) => ({
   server: state.server,
@@ -36,7 +37,7 @@ class ModuleListView extends Component {
     return this.state
       .modules
       .map((module, index) => (
-        <div key={index}>{module.name} {module.enabled ? "✓" : "✘"}</div>
+        <Module key={index} module={module}/>
       ));
   }
 

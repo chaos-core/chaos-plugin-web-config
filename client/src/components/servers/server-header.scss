@@ -1,5 +1,6 @@
 .server-header {
   text-align: center;
+  margin-bottom: 8px;
 
   .discord-icon {
     width: 100px;
@@ -10,6 +11,7 @@
   }
 
   .change-server-link {
+    margin-top: 8px;
     text-decoration: underline;
     cursor: pointer;
   }
