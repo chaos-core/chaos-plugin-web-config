@@ -1,14 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 
-import {SET_SERVER} from "../actions/servers.actions";
+import {SET_SERVER} from "../actions/server.actions";
 
 import ServerList from '../components/servers/server-list';
 
 const mapStateToProps = (state, ownProps) => ({});
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onMount: () => dispatch(SET_SERVER(undefined))
+  onMount: () => dispatch(SET_SERVER(null))
 });
 
 class ServersPageView extends Component {
