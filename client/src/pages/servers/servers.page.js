@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 
-import {SET_SERVER} from "../actions/server.actions";
+import {SET_SERVER} from "../../actions/server.actions";
 
-import ServerList from '../components/servers/server-list';
+import ServerList from '../../components/servers/server-list';
 
 const mapStateToProps = (state, ownProps) => ({});
 

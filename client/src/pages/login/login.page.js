@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DiscordLoginBtn from "../components/auth/discord-login-btn";
+import DiscordLoginBtn from "../../components/auth/discord-login-btn";
 
 import "./login.page.scss";
 

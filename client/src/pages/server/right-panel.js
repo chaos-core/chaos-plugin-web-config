@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import Loading from '../shared/loading';
+import Loading from '../../components/shared/loading';
 
 import './right-panel.scss';
 

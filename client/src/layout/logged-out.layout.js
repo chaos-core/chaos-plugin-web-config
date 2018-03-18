@@ -3,8 +3,8 @@ import { Route, Redirect } from 'react-router';
 
 import ConnectedSwitch from "../components/shared/connected-switch";
 
-import LoginPage from "../pages/login.page";
-import LoginVerifyPage from "../pages/verify.page";
+import LoginPage from "../pages/login/login.page";
+import LoginVerifyPage from "../pages/verify/verify.page";
 
 const LoggedOutLayout = () => (
   <div>

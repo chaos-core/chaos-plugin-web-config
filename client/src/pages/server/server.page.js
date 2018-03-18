@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {SET_SERVER} from "../actions/server.actions";
+import {SET_SERVER} from "../../actions/server.actions";
 
-import LeftPanel from "../components/servers/left-panel";
-import RightPanel from "../components/servers/right-panel";
+import LeftPanel from "./left-panel";
+import RightPanel from "./right-panel";
 
 import './server.page.scss';
 
