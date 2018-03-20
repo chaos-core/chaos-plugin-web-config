@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const router = require('./lib/router');
-const AuthService = require('./lib/services/auth-service');
+const JwtManager = require('./lib/jwt-manager');
 
 class ApiServer {
   get locals() {
@@ -22,7 +22,7 @@ class ApiServer {
       nix: this.nix,
       config: this.config,
       services: {
-        AuthService: new AuthService(this.app, this.config),
+        JwtManager: new JwtManager(this.app, this.config),
       },
     };
 

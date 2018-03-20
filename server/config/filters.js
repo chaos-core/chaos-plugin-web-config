@@ -1,9 +1,10 @@
 module.exports = {
   authorize(req, res, next) {
-    let AuthService = req.app.locals.services.AuthService;
+    let JwtManager = req.app.locals.services.JwtManager;
 
-    return AuthService.getAuthToken(req)
-      .then((authToken) => AuthService.decodeToken(authToken))
+    return JwtManager
+      .getAuthToken(req)
+      .then((authToken) => JwtManager.decodeToken(authToken))
       .then((payload) => {
         res.locals.jwt = payload;
         res.locals.userId = payload.userId;

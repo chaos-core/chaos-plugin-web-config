@@ -1,9 +1,9 @@
-const DiscordRestClient = require('../discord-rest-client');
+const DiscordRestClient = require('./discord-rest-client');
 const jwt = require('jsonwebtoken');
 
 ALGORITHM = "HS256";
 
-class AuthService {
+class JwtManager {
   constructor(app, config) {
     this.app = app;
     this.config = config;
@@ -76,4 +76,4 @@ class AuthService {
   }
 }
 
-module.exports = AuthService;
+module.exports = JwtManager;
