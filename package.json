@@ -70,8 +70,8 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
-    "start-bot": "node nix-bot.js",
-    "start-bot-debug": "node %NODE_DEBUG_OPTION% nix-bot.js",
+    "start-bot": "node server/test-bot/nix-bot.js",
+    "start-bot-debug": "node %NODE_DEBUG_OPTION% server/test-bot/nix-bot.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
