@@ -1,34 +1,59 @@
 const Rx = require('rx');
 
+const Server = require('../models/server');
+
 class ModulesController {
   index(req, res) {
     let nix = req.app.locals.nix;
     let guildId = req.params.id;
+    let userId = res.locals.userId;
 
     let ModuleService = nix.getService('core', 'ModuleService');
 
-    Rx.Observable
-      .from(Object.values(ModuleService.modules))
-      .flatMap((module) =>
-        ModuleService
-          .isModuleEnabled(guildId, module.name)
-          .map((isEnabled) => ({ module, isEnabled }))
+    return Rx.Observable
+      .of(nix.discord.guilds.get(guildId))
+      .flatMap((guild) =>
+        Rx.Observable.if(
+          () => guild,
+          Rx.Observable.of(guild).map((guild) => new Server(nix, guild)),
+          Rx.Observable.throw({ name: "GuildNotFound" }),
+        )
       )
-      .map(({module, isEnabled}) => ({
-        name: module.name,
-        enabled: isEnabled
-      }))
-      .toArray()
+      .flatMap((server) =>
+        server.isUserAnAdmin(userId)
+          .flatMap((isAdmin) =>
+            Rx.Observable.if(
+              () => isAdmin,
+              Rx.Observable.of(server),
+              Rx.Observable.throw({ name: "NotAuthorized" })
+            )
+          )
+      )
+      .flatMap((server) =>
+        Rx.Observable
+          .from(Object.values(ModuleService.modules))
+          .flatMap((module) =>
+            ModuleService.isModuleEnabled(server.id, module.name)
+              .map((isEnabled) => ({
+                name: module.name,
+                enabled: isEnabled
+              }))
+          )
+          .toArray()
+      )
       .subscribe(
         (modules) => {
-          if (modules) {
-            return res.json({modules});
-          }
-          else {
-            return res.status(400).json({error: "Server not found"});
-          }
+          res.json({ modules });
         },
-        (error) => handleError(res, error),
+        (error) => {
+          switch (error.name) {
+            case "NotAuthorized":
+            case "GuildNotFound":
+              return res.status(404).json({ error: "Guild not found" });
+            default:
+              throw error;
+          }
+        }
       );
   }
 }
