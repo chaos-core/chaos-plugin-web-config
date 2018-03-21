@@ -10,7 +10,7 @@ class ServersController {
     Rx.Observable
       .from(nix.discord.guilds.array())
       .map((guild) => new Server(nix, guild))
-      .flatMap((server) => server.isUserAnAdmin(userId).filter(Boolean).mapTo(server))
+      .flatMap((server) => server.isUserAnAdmin(userId).filter(Boolean).map(() => server))
       .map((server) => server.toJson())
       .toArray()
       .subscribe((servers) => {
