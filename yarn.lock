@@ -4896,8 +4896,8 @@ next-tick@1:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
 "nix-core@github:nix-core/nix-core#v0.8.0-rc.1":
-  version "0.8.0-dev"
-  resolved "https://codeload.github.com/nix-core/nix-core/tar.gz/eb906346394fa652dfcbf7b493737761f8a00c63"
+  version "0.8.0-rc.1"
+  resolved "https://codeload.github.com/nix-core/nix-core/tar.gz/c8d7288bdccf339c561376a14f18e3bc08a0602e"
   dependencies:
     nix-data-memory "github:nix-core/nix-data-memory#master"
     winston "^3.0.0-rc1"
