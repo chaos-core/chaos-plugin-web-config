@@ -1,8 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import Loading from '../shared/loading';
-import ServerHeader from "../servers/server-header";
+import Loading from '../../components/shared/loading';
+import ServerHeader from "../../components/servers/server-header";
+import ModuleList from "../../components/modules/module-list";
 
 import './left-panel.scss';
 
@@ -24,6 +25,7 @@ const LeftPanelView = ({server}) => {
     return (
       <div className={"left-panel"}>
         <ServerHeader/>
+        <ModuleList/>
       </div>
     );
   }

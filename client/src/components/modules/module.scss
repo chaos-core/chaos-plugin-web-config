@@ -1,0 +1,18 @@
+@import "../../variables";
+
+.module {
+  margin-left: -24px;
+  margin-right: -24px;
+
+  padding: 12px 24px;
+
+  .enabled-flag {
+    display: inline-block;
+    float: right;
+  }
+
+  &:hover {
+    background: $colour-secondary;
+    color: $colour-black;
+  }
+}

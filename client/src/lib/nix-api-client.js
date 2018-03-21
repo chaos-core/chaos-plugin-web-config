@@ -56,6 +56,10 @@ class NixApiClient {
   fetchServer(serverId) {
     return this.get(`/server/${serverId}`).then((response) => response.server);
   }
+
+  fetchModules(serverId) {
+    return this.get(`/server/${serverId}/modules`).then((response) => response.modules);
+  }
 }
 
 export default new NixApiClient();
