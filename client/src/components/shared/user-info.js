@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const UserInfoView = ({user, onLogout}) => (
   <div className="user-info">
     <span>{user.username}</span>
-    <div className={`btn btn-small`} onClick={onLogout}>Logout</div>
+    <div className={`btn btn-link`} onClick={onLogout}>Logout</div>
   </div>
 );
 
