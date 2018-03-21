@@ -2,9 +2,9 @@ const DiscordRestClient = require('../lib/discord-rest-client');
 
 class LoginController{
   login(req, res, next) {
-    let AuthService = req.app.locals.services.AuthService;
+    let JwtManager = req.app.locals.services.JwtManager;
 
-    AuthService
+    JwtManager
       .loginDiscord(req.body.code)
       .then((jwt) => {
         res

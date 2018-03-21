@@ -7,7 +7,7 @@ const ServerHeaderView = ({server, onChangeServer}) => (
   <div className={"server-header"}>
     <DiscordIcon className={"icon-bot"} alt={"Bot"} type={'placeholder'}/>
     <DiscordIcon className={"icon-server"} alt={server.name} type={'guild'} guildId={server.id} iconId={server.iconId}/>
-    <div className={"change-server-link"} onClick={onChangeServer}>Change Server</div>
+    <div className={"btn btn-link"} onClick={onChangeServer}>Change Server</div>
   </div>
 );
 
