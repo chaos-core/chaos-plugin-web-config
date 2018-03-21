@@ -1,5 +1,7 @@
 const Rx = require('rx');
 
+const Server = require('../models/server');
+
 class ServersController {
   index(req, res) {
     let nix = req.app.locals.nix;
@@ -7,11 +9,12 @@ class ServersController {
 
     Rx.Observable
       .from(nix.discord.guilds.array())
-      .flatMap((guild) => filterUserIsAdmin(nix, guild, userId))
-      .map((guild) => filterGuildProps(guild))
+      .map((guild) => new Server(nix, guild))
+      .flatMap((server) => server.isUserAnAdmin(userId).filter(Boolean).mapTo(server))
+      .map((server) => server.toJson())
       .toArray()
-      .subscribe((guilds) => {
-        res.json({ servers: guilds });
+      .subscribe((servers) => {
+        res.json({ servers });
       });
   }
 
@@ -22,49 +25,20 @@ class ServersController {
 
     Rx.Observable
       .of(nix.discord.guilds.get(guildId))
-      .filter((guild) => guild)
-      .flatMap((guild) => filterUserIsAdmin(nix, guild, userId))
-      .map((guild) => filterGuildProps(guild))
-      .defaultIfEmpty(null)
-      .subscribe(
-        (server) => {
-          if (server) {
-            return res.json({ server });
-          }
-          else {
-            return res.status(400).json({ error: "Server not found" });
-          }
-        },
-        (error) => handleError(res, error),
-      );
+      .filter(Boolean)
+      .map((guild) => new Server(nix, guild))
+      .flatMap((server) => server.isUserAnAdmin(userId).filter(Boolean).map(() => server))
+      .map((server) => server.toJson())
+      .defaultIfEmpty(undefined)
+      .subscribe((server) => {
+        if (server) {
+          return res.json({ server });
+        }
+        else {
+          return res.status(404).json({ error: "Server not found" });
+        }
+      });
   }
-}
-
-function handleError(res, error) {
-  switch (error.name) {
-    case "GuildNotFoundError":
-      return res
-        .status(400)
-        .json({error: error.message});
-    default:
-      throw error;
-  }
-}
-
-function filterGuildProps(guild) {
-  return {
-    id: guild.id,
-    name: guild.name,
-    iconId: guild.icon,
-  }
-}
-
-function filterUserIsAdmin(nix, guild, userId) {
-  return Rx.Observable
-    .fromPromise(guild.fetchMember(userId))
-    .map((member) => ({ guild, member }))
-    .flatMap((context) => nix.permissionsService.filterHasPermission(context, 'config'))
-    .map(() => guild);
 }
 
 module.exports = ServersController;
