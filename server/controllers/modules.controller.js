@@ -1,32 +1,15 @@
-const Rx = require('rx');
+const Module = require("../models/module");
 
 class ModulesController {
   index(req, res) {
-    let nix = req.app.locals.nix;
     let server = res.locals.server;
 
-    let ModuleService = nix.getService('core', 'ModuleService');
-    return  Rx.Observable.from(Object.values(ModuleService.modules))
-      .flatMap((module) =>
-        ModuleService.isModuleEnabled(server.id, module.name)
-          .map((isEnabled) => ({
-            name: module.name,
-            enabled: isEnabled
-          }))
-      )
+    return server.getModules()
+      .map((module) => module.toJson())
       .toArray()
       .subscribe(
-        (modules) => {
-          res.json({ modules });
-        },
-        (error) => {
-          switch (error.name) {
-            case "NotAuthorized":
-            case "GuildNotFound":
-              return res.status(404).json({ error: "Guild not found" });
-            default:
-              throw error;
-          }
+        (module) => {
+          res.json({ module: module });
         }
       );
   }
@@ -36,25 +19,11 @@ class ModulesController {
     let server = res.locals.server;
     let moduleName = req.params.moduleName;
 
-    let ModuleService = nix.getService('core', 'ModuleService');
-
-    return Rx.Observable.of(moduleName)
-      .map((moduleName) => ModuleService.getModule(moduleName))
-      .flatMap((module) =>
-        ModuleService.isModuleEnabled(server.id, module.name)
-          .map((isEnabled) => {
-            module.enabled = isEnabled;
-            return module;
-          })
-      )
-      .map((module) => ({
-        name: module.name,
-        enabled: module.enabled,
-        actions: module.configActions,
-      }))
+    return Module.getModule(nix, moduleName, server)
+      .map((module) => module.toJson())
       .subscribe(
         (module) => {
-          res.json({ module });
+          res.json({module });
         },
         (error) => {
           switch (error.message) {
