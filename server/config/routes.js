@@ -17,12 +17,26 @@ function Routes() {
     'GET /': home.index,
 
     'POST /login': login.login,
-    'GET /user': [filters.authorize, login.userInfo],
+    'GET /user': [
+      filters.authorize,
+      login.userInfo
+    ],
 
-    'GET /servers': [filters.authorize, servers.index],
-    'GET /server/:id': [filters.authorize, servers.view],
+    'GET /servers': [
+      filters.authorize,
+      servers.index
+    ],
+    'GET /server/:guildId': [
+      filters.authorize,
+      filters.userIsAdmin,
+      servers.view
+    ],
 
-    'GET /server/:id/modules': [filters.authorize, modules.index],
+    'GET /server/:guildId/modules': [
+      filters.authorize,
+      filters.userIsAdmin,
+      modules.index
+    ],
 
     'GET /data/read/:guildId/:keyword': data.read,
   }

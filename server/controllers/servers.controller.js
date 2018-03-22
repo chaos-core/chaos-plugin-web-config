@@ -19,25 +19,11 @@ class ServersController {
   }
 
   view(req, res) {
-    let nix = req.app.locals.nix;
-    let userId = res.locals.userId;
-    let guildId = req.params.id;
+    let server = res.locals.server;
 
-    Rx.Observable
-      .of(nix.discord.guilds.get(guildId))
-      .filter(Boolean)
-      .map((guild) => new Server(nix, guild))
-      .flatMap((server) => server.isUserAnAdmin(userId).filter(Boolean).map(() => server))
-      .map((server) => server.toJson())
-      .defaultIfEmpty(undefined)
-      .subscribe((server) => {
-        if (server) {
-          return res.json({ server });
-        }
-        else {
-          return res.status(404).json({ error: "Server not found" });
-        }
-      });
+    return res.json({
+      server: server.toJson(),
+    });
   }
 }
 
