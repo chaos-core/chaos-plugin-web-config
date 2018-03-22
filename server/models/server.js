@@ -1,3 +1,5 @@
+const Module = require("./module");
+
 const Rx = require('rx');
 
 class Server {
@@ -28,6 +30,14 @@ class Server {
         member: member,
       }))
       .flatMap((context) => permissionsService.hasPermission(context, 'config'));
+  }
+
+  getModules() {
+    let ModuleService = this.nix.getService('core', 'ModuleService');
+
+    return Rx.Observable
+      .from(Object.values(ModuleService.modules))
+      .flatMap((module) => Module.getModule(this.nix, module.name, this));
   }
 
   toJson() {
