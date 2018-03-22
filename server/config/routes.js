@@ -37,6 +37,11 @@ function Routes() {
       filters.userIsAdmin,
       modules.index
     ],
+    'GET /server/:guildId/:moduleName': [
+      filters.authorize,
+      filters.userIsAdmin,
+      modules.view
+    ],
 
     'GET /data/read/:guildId/:keyword': data.read,
   }
