@@ -42,6 +42,11 @@ function Routes() {
       filters.userIsAdmin,
       modules.view
     ],
+    'PATCH /server/:guildId/:moduleName/enable': [
+      filters.authorize,
+      filters.userIsAdmin,
+      modules.enable
+    ],
 
     'GET /data/read/:guildId/:keyword': data.read,
   }
