@@ -9,7 +9,7 @@ class ModulesController {
       .toArray()
       .subscribe(
         (module) => {
-          res.json({ module: module });
+          res.json({ modules: module });
         }
       );
   }
