@@ -34,13 +34,18 @@ class Module {
     return this.module.configActions;
   }
 
+  get canBeDisabled() {
+    return this.module.canBeDisabled;
+  }
+
   toJson() {
     return {
       name: this.name,
       enabled: this.enabled,
       actions: this.configActions,
+      canBeDisabled: this.canBeDisabled,
     }
   }
-};
+}
 
 module.exports = Module;
